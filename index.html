@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title">KEEP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+
+</head>
+<body onload="render()">
+
+    <header>
+        <div onclick="archiv()" class="archiv-header" >
+            <img class="img-header" src="img/cloud-search.svg" alt="archiv">
+            Archiv
+        </div>
+        <a id="my-keep" class="my-keep add-my-keep" href="./index.html">
+        MyKEEP
+        </a>
+            <div id="trash-header" class="trash-header" onclick="renderTrash()">
+                <img class="img-header" src="img/trash.svg" alt="archiv">
+                Trash
+            </div>
+    </header>
+
+    <!-- INPUT -->
+
+    <div id="input" class="input" onclick="toggleNewNoteInput()"> 
+        <b><input class="card" placeholder="Notiz schreiben...." type="text"></b>
+    </div>
+    <div id="new-input" class="new-input-container">
+        <div class="new-input">
+            <b>
+                <input id="new-title"class="card new-headline" input placeholder="Title" type="text">
+            </b>
+        </div>
+        <div class="card-write">
+                <textarea id="new-note" class="new-note" placeholder="Notiz schreiben...."></textarea>
+                <div class="button-save-close">
+                    <button class="button-save" onclick="addNote()">SAVE</button>
+                    <button class="button-close" onclick="toggleNewNoteInput()">CLOSE</button>
+                </div>  
+        </div>
+    </div>
+    <div id="new-content-container-height" class="new-content-container background-img">
+        <div id="new-content"></div>
+    </div>
+
+    <footer>
+        <a href=https://www.flaticon.com/free-icons/document title="document icons">Document icons created by Freepik - Flaticon</a>
+    </footer>
+
+</body>
+</html>
