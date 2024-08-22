@@ -9,8 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-
+    
 </head>
 <body onload="render()">
 
@@ -20,13 +19,13 @@
             Archiv
         </div>
         <a id="my-keep" class="my-keep add-my-keep" href="./index.html">
-        MyKEEP
+            MyKEEP
         </a>
-            <div id="trash-header" class="trash-header" onclick="renderTrash()">
-                <img class="img-header" src="img/trash.svg" alt="archiv">
+        <div id="trash-header" class="trash-header" onclick="renderTrash()">
+            <img class="img-header" src="img/trash.svg" alt="archiv">
                 Trash
             </div>
-    </header>
+        </header>
 
     <!-- INPUT -->
 
@@ -39,7 +38,7 @@
         <div class="card-write">
                 <textarea id="new-note" class="new-note" placeholder="Notiz schreiben...."></textarea>
                 <div class="button-save-close">
-                    <button class="button-save" onclick="addNote()">SAVE</button>
+                    <button class="button-save">SAVE</button>
                     <button class="button-close" onclick="toggleNewNoteInput()">CLOSE</button>
                 </div>  
         </div>
@@ -51,6 +50,7 @@
     <footer>
         <a href=https://www.flaticon.com/free-icons/document title="document icons">Document icons created by Freepik - Flaticon</a>
     </footer>
-
+    
+    <script src="script.js"></script>
 </body>
 </html>
