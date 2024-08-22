@@ -61,7 +61,7 @@ function saveNoteInLocalStorage() {
 
 
 function addDeletedNoteToMyKeepArrayAgain(i) {
-  new Task(titleTrashes[i], newNoteTrashes[i]);
+  globalNotes.push(new Task(titleTrashes[i], newNoteTrashes[i]));
   deleteTrashFromTrashCompletely(i);
   saveNoteInLocalStorage();
 }
@@ -139,7 +139,6 @@ function renderTrash() {
 
 function addClasses() {
   document.getElementById("title").innerHTML = `Trash`;
-//   document.getElementById("input").classList.add("d-none");
   document.getElementById("new-input").classList.add("d-none");
   document.getElementById("trash-header").classList.add("box-shadow");
   document.getElementById("my-keep").classList.remove("my-keep");
@@ -153,42 +152,3 @@ function addClasses() {
 function archiv() {
   alert("Die Seite ist noch in der Bearbeitung.");
 }
-
-
-class Task {
-  constructor(title, description) {
-    this.title = title;
-    this.description = description;
-    this.pushToArray();
-  }
-
-  inputTitle() {
-    let title = document.getElementById("new-title");
-    return title.value;
-  }
-
-  inputDescription() {
-    let description = document.getElementById("new-note");
-    return description.value;
-  }
-
-  pushToArray() {
-    globalNotes.push(this);
-  }
-}
-
-
-document.querySelector(".button-save").addEventListener("click", () => {
-  let title = document.getElementById("new-title");
-  let description = document.getElementById("new-note");
-
-  if (title.value == "" || description.value == "") {
-    alert("Bitte geben Sie einen Titel und eine Notiz ein.");
-  } else {
-    new Task(title.value, description.value);
-  }
-  title.value = "";
-  description.value = "";
-  render();
-  saveNoteInLocalStorage();
-});
