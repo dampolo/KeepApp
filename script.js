@@ -7,8 +7,6 @@ loadNoteFromLocalStorage();
 loadTrashFromLocalStorage();
 
 function toggleNewNoteInput() {
-    document.getElementById('input').classList.toggle('d-none')
-    document.getElementById('new-input').classList.toggle('add-new-input')
     document.getElementById('new-content-container-height').classList.toggle('new-content-container-footer')
 }
 

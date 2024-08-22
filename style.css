@@ -1,99 +1,115 @@
 /*
   1. Use a more-intuitive box-sizing model.
 */
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  /*
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/*
     2. Remove default margin
   */
-  * {
-    margin: 0;
-  }
-  /*
+* {
+  margin: 0;
+}
+/*
     Typographic tweaks!
     3. Add accessible line-height
     4. Improve text rendering
   */
-  body {
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-  /*
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
     5. Improve media defaults
   */
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  /*
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+/*
     6. Remove built-in form typography styles
   */
-  input, button, textarea, select {
-    font: inherit;
-  }
-  /*
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/*
     7. Avoid text overflows
   */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  /*
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+/*
     8. Create a root stacking context
   */
-  #root, #__next {
-    isolation: isolate;
-  }
+#root,
+#__next {
+  isolation: isolate;
+}
 
-  a {
-    text-decoration: none;
-    color: black;
-  }
+a {
+  text-decoration: none;
+  color: black;
+}
 
 body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  font-size: 15px;
 }
 
 header {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    height: 120px;
-    cursor: pointer;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 120px;
+  cursor: pointer;
 
-    width: 100%;
-    text-align: center;
-    background-color: white;
-    box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
-    margin-bottom: 30px;
-    /* Das muss sein sonst sieht man den "shadow" nicht */
-    font-size: 50px;
+  width: 100%;
+  text-align: center;
+  background-color: white;
+  box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
+  margin-bottom: 30px;
+  /* Das muss sein sonst sieht man den "shadow" nicht */
+  font-size: 50px;
 }
 
 footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80px;
-    width: 100%;
-    box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
 }
 
 .trash-header {
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    gap: 2px;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 0 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  gap: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0 10px 0 10px;
 }
 .trash-header:hover {
   box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
@@ -123,12 +139,12 @@ footer {
 }
 
 .archiv-header {
-    display: flex;
-    flex-direction: column;
-    font-size: 20px;
-    gap: 2px;
-    cursor: pointer;
-    padding: 0 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  gap: 2px;
+  cursor: pointer;
+  padding: 0 10px 0 10px;
 }
 
 .archiv-header:hover {
@@ -138,71 +154,74 @@ footer {
 }
 
 .input {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .d-none {
-    display: none;
+  display: none;
 }
 
 .card {
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
-    padding: 8px;
-    margin-bottom: 32px;
-    border-radius: 8px;
-    border: 0;
-    width: 600px;
-    height: 40px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
+  padding: 8px;
+  margin-bottom: 32px;
+  border-radius: 8px;
+  border: 0;
+  width: 600px;
+  height: 40px;
 }
 
-.card-write{
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
-    border-radius: 8px;
-    border: 0;
-    position: relative;
+.card-write {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
+  border-radius: 8px;
+  border: 0;
+  position: relative;
 }
 
 .new-input-container {
-    display: none;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .add-new-input {
-    display: flex;
+  display: flex;
 }
 
 .new-headline {
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 2px 6px 2px rgba(60,64,67,0.149);
-    margin-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
+  margin-bottom: 0;
 }
 
 .new-note {
-    border-radius: 0 0 8px 8px;
-    padding-left: 10px;
-    border: 0;
-    height: 100px;
-    width: 100%;
-    position: relative;
-    resize: none;
+  border-radius: 0 0 8px 8px;
+  padding-left: 10px;
+  border: 0;
+  height: 100px;
+  width: 100%;
+  position: relative;
+  resize: none;
 }
 
 .button-save-close {
-    display: flex;
-    flex-direction: row;
-    cursor: pointer;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    font-size: 20px;
-    gap: 10px;
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 20px;
+  gap: 10px;
 }
 
 .button-save {
-    cursor: pointer;
-    border: 0;
-    background-color: white;
+  cursor: pointer;
+  border: 0;
+  background-color: white;
 }
 
 .button-save:hover {
@@ -211,9 +230,9 @@ footer {
 }
 
 .button-close {
-    cursor: pointer;
-    border: 0;
-    background-color: white;  
+  cursor: pointer;
+  border: 0;
+  background-color: white;
 }
 .button-close:hover {
   box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
@@ -223,7 +242,7 @@ footer {
 /* NEW-INPUT-SAVED */
 
 .new-content-container {
-    width: 100%;
+  width: 100%;
 }
 
 #new-content {
@@ -234,31 +253,31 @@ footer {
 }
 
 .new-title-saved {
-    border-radius: 8px;
-    border: 1px;
-    width: 300px;
-    -webkit-box-shadow: 0px -5px 24px -3px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px -5px 24px -3px rgba(0,0,0,0.5);
-    box-shadow: 0px -5px 24px -3px rgba(0,0,0,0.5);
-    padding: 10px;
+  border-radius: 8px;
+  border: 1px;
+  width: 300px;
+  -webkit-box-shadow: 0px -5px 24px -3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px -5px 24px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px -5px 24px -3px rgba(0, 0, 0, 0.5);
+  padding: 10px;
 }
 
 .new-note-saved {
-    width: 300px;
-    min-height: 150px;
-    border-radius: 8px;
-    border: 0;
-    -webkit-box-shadow: 0px 5px 24px -3px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0px 5px 24px -3px rgba(0,0,0,0.5);
-    box-shadow: 0px 5px 24px -3px rgba(0,0,0,0.5);
-    padding: 10px;
-    white-space: pre;
+  width: 300px;
+  min-height: 150px;
+  border-radius: 8px;
+  border: 0;
+  -webkit-box-shadow: 0px 5px 24px -3px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 5px 24px -3px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 24px -3px rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  white-space: pre;
 }
 
 .button-delete {
-    cursor: pointer;
-    border: 0;
-    background-color: white;  
+  cursor: pointer;
+  border: 0;
+  background-color: white;
 }
 
 .button-delete:hover {
@@ -272,11 +291,11 @@ footer {
 }
 
 .new-input-container-saved {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 10px;
 }
 
 .new-content-container {
@@ -287,18 +306,18 @@ footer {
   min-height: calc(100vh - 120px - 100px);
 }
 
-@media(max-width: 600px) {
-    .card {
-        width: 300px;
-    }
-    .new-input-container-saved {
-      margin: 10px 10px;
-    }
+@media (max-width: 600px) {
+  .card {
+    width: 300px;
+  }
+  .new-input-container-saved {
+    margin: 10px 10px;
+  }
 }
 
-@media(max-width: 400px) {
+@media (max-width: 400px) {
   .card {
-      width: 300px;
+    width: 300px;
   }
   .new-input-container-saved {
     margin: 10px 10px;
