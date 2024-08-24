@@ -1,7 +1,7 @@
+let globalNotes = [];
+
 let titleTrashes = [];
 let newNoteTrashes = [];
-
-let globalNotes = [];
 
 loadNoteFromLocalStorage();
 loadTrashFromLocalStorage();
@@ -29,7 +29,7 @@ function render() {
             <div class="card-write">    
                 <div class="new-note-saved">${newNoteObject.description}</div>
                 <div class="button-save-close">
-                    <button class="button-delete" onclick="addNoteToTrashArray(${i})">DELETE</button>
+                <button class="button-delete" onclick="addNoteToTrashArray(${i})">DELETE</button>
                 </div>  
             </div>
         </div>
@@ -152,3 +152,22 @@ function addClasses() {
 function archiv() {
   alert("Die Seite ist noch in der Bearbeitung.");
 }
+
+
+document.querySelector(".button-save").addEventListener("click", () => {
+  const title = document.getElementById("new-title");
+  const description = document.getElementById("new-note");
+  const idGenerator = new IdGenerator();
+
+
+  if (title.value == "" || description.value == "") {
+    alert("Please enter a title and a note.");
+  } else {
+    globalNotes.push(new Task(title.value, description.value));
+    console.log(new Task(idGenerator.getId(), title.value, description.value));
+  }
+  title.value = "";
+  description.value = "";
+  render();
+  saveNoteInLocalStorage();
+});
