@@ -1,10 +1,11 @@
-let titles = [];
-let newNotes = [];
+let globalNotes = [];
+
 let titleTrashes = [];
 let newNoteTrashes = [];
 
 loadNoteFromLocalStorage();
 loadTrashFromLocalStorage();
+
 
 function toggleNewNoteInput() {
     document.querySelector('.card-write').classList.toggle('d-none')
@@ -12,140 +13,111 @@ function toggleNewNoteInput() {
 
 
 function render() {
-    // document.getElementById('my-keep').classList.add('box-shadow');
-    let content = document.getElementById('new-content');
-    content.innerHTML = "";
+  let content = document.getElementById("new-content");
+  content.innerHTML = "";
 
-    for (let i = 0; i < titles.length; i++) {
-        const title = titles[i];
-        const newNote = newNotes[i];
+  for (let i = 0; i < globalNotes.length; i++) {
+    const newNoteObject = globalNotes[i];
 
-        content.innerHTML += 
-        /*html*/ `
+    content.innerHTML += /*html*/ `
         <div class="new-input-container-saved">
             <div class="new-input-saved">
-                <div class="new-title-saved" type="text"><b>${title}</b></div>
+                <div class="new-title-saved" type="text"><b>${newNoteObject.title}</b></div>
             </div>
             <div class="card-write">    
-                <div class="new-note-saved">${newNote}</div>
+                <div class="new-note-saved">${newNoteObject.description}</div>
                 <div class="button-save-close">
-                    <button class="button-delete" onclick="addNoteToTrashArray(${i})">DELETE</button>
+                <button class="button-delete" onclick="addNoteToTrashArray(${i})">DELETE</button>
                 </div>  
             </div>
         </div>
        `;
-    }
-}
-
-
-function addNote() {
-    let title = document.getElementById('new-title');
-    let newNote = document.getElementById('new-note');
-
-    if(title.value == "" || newNote.value == "") {
-        alert ("Bitte geben Sie einen Titel und eine Notiz ein.")
-    } else {
-        titles.push(title.value);
-        newNotes.push(newNote.value);
-    
-        document.getElementById('new-title').value = "";
-        document.getElementById('new-note').value = "";
-        render();
-        saveNoteInLocalStorage();
-    }
+  }
 }
 
 
 function deleteNote(i) {
-    titles.splice(i, 1);
-    newNotes.splice(i, 1);
-    render();
-    saveNoteInLocalStorage();
+  globalNotes.splice(i, 1);
+  render();
+  saveNoteInLocalStorage();
 }
 
 
 function deleteTrashFromTrashCompletely(i) {
-    titleTrashes.splice(i, 1);
-    newNoteTrashes.splice(i, 1);
-    renderTrash();
-    saveTrashInLocalStorage();
+  titleTrashes.splice(i, 1);
+  newNoteTrashes.splice(i, 1);
+  renderTrash();
+  saveTrashInLocalStorage();
 }
 
 
 // Save note in local storage.
 function saveNoteInLocalStorage() {
-    let titleAsText = JSON.stringify(titles);
-    let newNotesAsText = JSON.stringify(newNotes);
-
-    localStorage.setItem('titles', titleAsText);
-    localStorage.setItem('newNotes', newNotesAsText);
+  let globalNotesAsText = JSON.stringify(globalNotes);
+  localStorage.setItem("globalNotes", globalNotesAsText);
 }
 
 
 function addDeletedNoteToMyKeepArrayAgain(i) {
-    titles.push(titleTrashes[i]);
-    newNotes.push(newNoteTrashes[i]);
-    deleteTrashFromTrashCompletely(i)
-    saveNoteInLocalStorage()
+  globalNotes.push(new Task(titleTrashes[i], newNoteTrashes[i]));
+  deleteTrashFromTrashCompletely(i);
+  saveNoteInLocalStorage();
 }
 
 
 // Load note from local sorage.
 function loadNoteFromLocalStorage() {
-    let titleAsText = localStorage.getItem('titles');
-    let newNotesAsText = localStorage.getItem('newNotes');
+  let globalNotesAsText = localStorage.getItem("globalNotes");
 
-    if (titleAsText && newNotesAsText) {
-        titles = JSON.parse(titleAsText);
-        newNotes = JSON.parse(newNotesAsText)
-    }
+  if (globalNotesAsText) {
+    globalNotes = JSON.parse(globalNotesAsText);
+  }
 }
 
 
 // Add note to trash array.
 function addNoteToTrashArray(i) {
-    titleTrashes.push(titles[i]);
-    newNoteTrashes.push(newNotes[i]);
-    deleteNote(i);
-    saveTrashInLocalStorage();
+  titleTrashes.push(globalNotes[i].title);
+  newNoteTrashes.push(globalNotes[i].description);
+  deleteNote(i);
+  saveTrashInLocalStorage();
 }
 
 
 // Save trash in local storage array.
 function saveTrashInLocalStorage() {
-    let titleTrashAsText = JSON.stringify(titleTrashes);
-    let newNoteTrashAsText = JSON.stringify(newNoteTrashes);
+  let titleTrashAsText = JSON.stringify(titleTrashes);
+  let newNoteTrashAsText = JSON.stringify(newNoteTrashes);
 
-    localStorage.setItem('titleTrashes', titleTrashAsText);
-    localStorage.setItem('newNoteTrashes', newNoteTrashAsText);
+  localStorage.setItem("titleTrashes", titleTrashAsText);
+  localStorage.setItem("newNoteTrashes", newNoteTrashAsText);
 }
 
 
 // Load trash from local storage array.
 function loadTrashFromLocalStorage() {
-    let titleTrashAsText = localStorage.getItem('titleTrashes');
-    let newNoteTrashAsText = localStorage.getItem('newNoteTrashes');
+  let titleTrashAsText = localStorage.getItem("titleTrashes");
+  let newNoteTrashAsText = localStorage.getItem("newNoteTrashes");
 
-    if (titleTrashAsText && newNoteTrashAsText) {
-        titleTrashes = JSON.parse(titleTrashAsText);
-        newNoteTrashes = JSON.parse(newNoteTrashAsText);    
-    }
+  if (titleTrashAsText && newNoteTrashAsText) {
+    titleTrashes = JSON.parse(titleTrashAsText);
+    newNoteTrashes = JSON.parse(newNoteTrashAsText);
+  }
 }
 
 
 // Render trash = load again the trash
 function renderTrash() {
-    addClasses() 
-   
-    let content = document.getElementById('new-content');
-    content.innerHTML = "";
+  addClasses();
 
-    for (let i = 0; i < titleTrashes.length; i++) {
-        const titleTrash = titleTrashes[i];
-        const newNoteTrash = newNoteTrashes[i];
+  let content = document.getElementById("new-content");
+  content.innerHTML = "";
 
-        content.innerHTML += 
-        /*html*/ `
+  for (let i = 0; i < titleTrashes.length; i++) {
+    const titleTrash = titleTrashes[i];
+    const newNoteTrash = newNoteTrashes[i];
+
+    content.innerHTML += /*html*/ `
         <div class="new-input-container-saved">
             <div class="new-input-saved">
                 <div class="new-title-saved" type="text">${titleTrash}</div>
@@ -159,21 +131,40 @@ function renderTrash() {
             </div>
         </div>
        `;
-    }
+  }
 }
 
 
 function addClasses() {
-    document.getElementById('title').innerHTML = `Trash`;
-    document.getElementById('input').classList.add('d-none');
-    document.getElementById('new-input').classList.remove('add-new-input');
-    document.getElementById('trash-header').classList.add('box-shadow');
-    document.getElementById('my-keep').classList.remove('my-keep');
-    document.getElementById('my-keep').classList.add('add-my-keep');
-    document.getElementById('new-content-container-height').classList.add('new-content-container-footer-trash')
+  document.getElementById("title").innerHTML = `Trash`;
+  document.getElementById("new-input").classList.add("d-none");
+  document.getElementById("trash-header").classList.add("box-shadow");
+  document.getElementById("my-keep").classList.remove("my-keep");
+  document.getElementById("my-keep").classList.add("add-my-keep");
+  document
+    .getElementById("new-content-container-height")
+    .classList.add("new-content-container-footer-trash");
 }
 
 
 function archiv() {
-    alert("Die Seite ist noch in der Bearbeitung.")
+  alert("Die Seite ist noch in der Bearbeitung.");
 }
+
+
+document.querySelector(".button-save").addEventListener("click", () => {
+  const title = document.getElementById("new-title");
+  const description = document.getElementById("new-note");
+  const idGenerator = new IdGenerator();
+debugger
+
+  if (title.value == "" || description.value == "") {
+    alert("Please enter a title and a note.");
+  } else {
+    globalNotes.push(new Task(idGenerator.getId(), title.value, description.value));
+  }
+  title.value = "";
+  description.value = "";
+  render();
+  saveNoteInLocalStorage();
+});
