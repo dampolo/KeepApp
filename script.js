@@ -158,13 +158,12 @@ document.querySelector(".button-save").addEventListener("click", () => {
   const title = document.getElementById("new-title");
   const description = document.getElementById("new-note");
   const idGenerator = new IdGenerator();
-
+debugger
 
   if (title.value == "" || description.value == "") {
     alert("Please enter a title and a note.");
   } else {
-    globalNotes.push(new Task(title.value, description.value));
-    console.log(new Task(idGenerator.getId(), title.value, description.value));
+    globalNotes.push(new Task(idGenerator.getId(), title.value, description.value));
   }
   title.value = "";
   description.value = "";
