@@ -105,7 +105,12 @@ footer {
 
 .main-content {
   flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
+
 .trash-header {
   display: flex;
   flex-direction: column;
@@ -171,9 +176,10 @@ footer {
     0 2px 6px 2px rgba(60, 64, 67, 0.149);
   padding: 8px;
   margin-bottom: 32px;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 0;
   border: 0;
-  width: 600px;
+  width: 100%;
   height: 40px;
 }
 
@@ -188,6 +194,8 @@ footer {
 .new-input-container {
   display: flex;
   flex-direction: column;
+  max-width: 640px;
+  width: 100%;
 }
 
 .add-new-input {
@@ -195,10 +203,7 @@ footer {
 }
 
 .new-headline {
-  border-radius: 8px 8px 0 0;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
-    0 2px 6px 2px rgba(60, 64, 67, 0.149);
-  margin-bottom: 0;
+  
 }
 
 .new-note {
@@ -209,6 +214,7 @@ footer {
   width: 100%;
   position: relative;
   resize: none;
+  outline: none;
 }
 
 .button-save-close {
@@ -298,7 +304,7 @@ footer {
   margin: 30px 10px;
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .card {
     width: 300px;
   }
@@ -320,4 +326,4 @@ footer {
   #new-content {
     margin: 0;
   }
-}
+} */
