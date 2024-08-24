@@ -7,7 +7,7 @@ loadNoteFromLocalStorage();
 loadTrashFromLocalStorage();
 
 function toggleNewNoteInput() {
-    document.getElementById('new-content-container-height').classList.toggle('new-content-container-footer')
+    document.querySelector('.card-write').classList.toggle('d-none')
 }
 
 

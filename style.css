@@ -74,6 +74,7 @@ body {
   font-family: "Roboto", sans-serif;
   margin: 0;
   font-size: 15px;
+  height: 100vh;
 }
 
 header {
@@ -102,6 +103,9 @@ footer {
   box-shadow: 0 2px 10px 0 rgba(196, 7, 7, 0.2);
 }
 
+.main-content {
+  flex: 1;
+}
 .trash-header {
   display: flex;
   flex-direction: column;
@@ -241,10 +245,6 @@ footer {
 
 /* NEW-INPUT-SAVED */
 
-.new-content-container {
-  width: 100%;
-}
-
 #new-content {
   display: flex;
   flex-wrap: wrap;
@@ -296,14 +296,6 @@ footer {
   justify-content: center;
   align-items: center;
   margin: 30px 10px;
-}
-
-.new-content-container {
-  min-height: calc(100vh - 120px - 100px - 80px);
-}
-
-.new-content-container-footer-trash {
-  min-height: calc(100vh - 120px - 100px);
 }
 
 @media (max-width: 600px) {

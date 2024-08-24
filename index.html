@@ -29,23 +29,25 @@
     </header>
 
     <!-- INPUT -->
+    <div class="main-content">
 
-    <div id="new-input" class="new-input-container">
-        <div class="new-input">
+        <div id="new-input" class="new-input-container">
+            <div class="new-input">
             <b>
-                <input id="new-title"class="card new-headline" input placeholder="Title" type="text">
+                <input id="new-title"class="card new-headline" input placeholder="Title" type="text" onclick="toggleNewNoteInput()">
             </b>
         </div>
-        <div class="card-write">
+        <div class="card-write d-none">
                 <textarea id="new-note" class="new-note" placeholder="Notiz schreiben...."></textarea>
                 <div class="button-save-close">
                     <button class="button-save" onclick="addNote()">SAVE</button>
                     <button class="button-close" onclick="toggleNewNoteInput()">CLOSE</button>
                 </div>  
+            </div>
         </div>
-    </div>
-    <div id="new-content-container-height" class="new-content-container background-img">
-        <div id="new-content"></div>
+        <div id="new-content-container-height" class="new-content-container background-img">
+            <div id="new-content"></div>
+        </div>
     </div>
 
     <footer>
