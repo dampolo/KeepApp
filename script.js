@@ -1,23 +1,20 @@
-let globalNotes = [];
-
 let titleTrashes = [];
 let newNoteTrashes = [];
+let idTrashes = [];
 
 loadNoteFromLocalStorage();
 loadTrashFromLocalStorage();
 
-
 function toggleNewNoteInput() {
-    document.querySelector('.card-write').classList.toggle('d-none')
+  document.querySelector(".card-write").classList.remove("d-none");
 }
-
 
 function render() {
   let content = document.getElementById("new-content");
   content.innerHTML = "";
 
-  for (let i = 0; i < globalNotes.length; i++) {
-    const newNoteObject = globalNotes[i];
+  for (let i = 0; i < currentList.notes.length; i++) {
+    const newNoteObject = currentList.notes[i];
 
     content.innerHTML += /*html*/ `
         <div class="new-input-container-saved">
@@ -35,76 +32,85 @@ function render() {
   }
 }
 
-
 function deleteNote(i) {
-  globalNotes.splice(i, 1);
+  currentList.notes.splice(i, 1);
+  const newTrash = {id: idTrashes[i], title: titleTrashes[i], note: newNoteTrashes[i] };
+  trash.addNoteToArray(newTrash);
   render();
   saveNoteInLocalStorage();
 }
 
-
 function deleteTrashFromTrashCompletely(i) {
   titleTrashes.splice(i, 1);
   newNoteTrashes.splice(i, 1);
+  idTrashes.splice(i, 1);
+
   renderTrash();
   saveTrashInLocalStorage();
 }
 
-
 // Save note in local storage.
 function saveNoteInLocalStorage() {
-  let globalNotesAsText = JSON.stringify(globalNotes);
-  localStorage.setItem("globalNotes", globalNotesAsText);
+  let currentListAsText = JSON.stringify(currentList);
+  localStorage.setItem("currentList", currentListAsText);
 }
 
-
 function addDeletedNoteToMyKeepArrayAgain(i) {
-  globalNotes.push(new Task(titleTrashes[i], newNoteTrashes[i]));
+  currentList.addNoteToArray(new Task(idTrashes[i], titleTrashes[i], newNoteTrashes[i]));
+  
   deleteTrashFromTrashCompletely(i);
   saveNoteInLocalStorage();
 }
 
-
 // Load note from local sorage.
 function loadNoteFromLocalStorage() {
-  let globalNotesAsText = localStorage.getItem("globalNotes");
+  let currentListAsText = localStorage.getItem("currentList");
 
-  if (globalNotesAsText) {
-    globalNotes = JSON.parse(globalNotesAsText);
+  if (currentListAsText) {
+    const currentListFromStorage = JSON.parse(currentListAsText);
+
+    for (let i = 0; i < currentListFromStorage.notes.length; i++) {
+      const index = currentListFromStorage.notes[i];
+
+      currentList.addNoteToArray(new Task(index.id, index.title, index.description));
+    }
   }
 }
 
 
 // Add note to trash array.
 function addNoteToTrashArray(i) {
-  titleTrashes.push(globalNotes[i].title);
-  newNoteTrashes.push(globalNotes[i].description);
+  idTrashes.push(currentList.notes[i].id);
+  titleTrashes.push(currentList.notes[i].title);
+  newNoteTrashes.push(currentList.notes[i].description);
+  
   deleteNote(i);
   saveTrashInLocalStorage();
 }
-
 
 // Save trash in local storage array.
 function saveTrashInLocalStorage() {
   let titleTrashAsText = JSON.stringify(titleTrashes);
   let newNoteTrashAsText = JSON.stringify(newNoteTrashes);
+  let idTrashAsText = JSON.stringify(idTrashes);
 
   localStorage.setItem("titleTrashes", titleTrashAsText);
   localStorage.setItem("newNoteTrashes", newNoteTrashAsText);
+  localStorage.setItem("idTrashes", idTrashAsText);
 }
-
 
 // Load trash from local storage array.
 function loadTrashFromLocalStorage() {
   let titleTrashAsText = localStorage.getItem("titleTrashes");
   let newNoteTrashAsText = localStorage.getItem("newNoteTrashes");
+  let idTrashAsText = localStorage.getItem("idTrashes");
 
   if (titleTrashAsText && newNoteTrashAsText) {
     titleTrashes = JSON.parse(titleTrashAsText);
     newNoteTrashes = JSON.parse(newNoteTrashAsText);
+    idTrashes = JSON.parse(idTrashAsText);
   }
 }
-
 
 // Render trash = load again the trash
 function renderTrash() {
@@ -134,7 +140,6 @@ function renderTrash() {
   }
 }
 
-
 function addClasses() {
   document.getElementById("title").innerHTML = `Trash`;
   document.getElementById("new-input").classList.add("d-none");
@@ -146,22 +151,21 @@ function addClasses() {
     .classList.add("new-content-container-footer-trash");
 }
 
-
 function archiv() {
   alert("Die Seite ist noch in der Bearbeitung.");
 }
-
 
 document.querySelector(".button-save").addEventListener("click", () => {
   const title = document.getElementById("new-title");
   const description = document.getElementById("new-note");
   const idGenerator = new IdGenerator();
-debugger
 
   if (title.value == "" || description.value == "") {
     alert("Please enter a title and a note.");
   } else {
-    globalNotes.push(new Task(idGenerator.getId(), title.value, description.value));
+    currentList.addNoteToArray(
+      new Task(idGenerator.getId(), title.value, description.value)
+    );
   }
   title.value = "";
   description.value = "";
