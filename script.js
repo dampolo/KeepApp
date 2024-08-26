@@ -1,9 +1,13 @@
+const currentList = new Notebook();
+const trash = new Notebook();
+const archive = new Notebook();
+
 let titleTrashes = [];
 let newNoteTrashes = [];
 let idTrashes = [];
 
-loadNoteFromLocalStorage();
-loadTrashFromLocalStorage();
+// loadNoteFromLocalStorage();
+// loadTrashFromLocalStorage();
 
 function toggleNewNoteInput() {
   document.querySelector(".card-write").classList.remove("d-none");
@@ -13,9 +17,7 @@ function render() {
   let content = document.getElementById("new-content");
   content.innerHTML = "";
 
-  for (let i = 0; i < currentList.notes.length; i++) {
-    const newNoteObject = currentList.notes[i];
-
+  currentList.notes.forEach((newNoteObject) => {
     content.innerHTML += /*html*/ `
         <div class="new-input-container-saved">
             <div class="new-input-saved">
@@ -24,20 +26,12 @@ function render() {
             <div class="card-write">    
                 <div class="new-note-saved">${newNoteObject.description}</div>
                 <div class="button-save-close">
-                <button class="button-delete" onclick="addNoteToTrashArray(${i})">DELETE</button>
+                <button class="button-delete" onclick="addNoteToTrashArray('${newNoteObject.id}')">DELETE</button>
                 </div>  
             </div>
         </div>
        `;
-  }
-}
-
-function deleteNote(i) {
-  currentList.notes.splice(i, 1);
-  const newTrash = {id: idTrashes[i], title: titleTrashes[i], note: newNoteTrashes[i] };
-  trash.addNoteToArray(newTrash);
-  render();
-  saveNoteInLocalStorage();
+  });
 }
 
 function deleteTrashFromTrashCompletely(i) {
@@ -46,7 +40,7 @@ function deleteTrashFromTrashCompletely(i) {
   idTrashes.splice(i, 1);
 
   renderTrash();
-  saveTrashInLocalStorage();
+  // saveTrashInLocalStorage();
 }
 
 // Save note in local storage.
@@ -59,7 +53,7 @@ function addDeletedNoteToMyKeepArrayAgain(i) {
   currentList.addNoteToArray(new Task(idTrashes[i], titleTrashes[i], newNoteTrashes[i]));
   
   deleteTrashFromTrashCompletely(i);
-  saveNoteInLocalStorage();
+  // saveNoteInLocalStorage();
 }
 
 // Load note from local sorage.
@@ -79,13 +73,11 @@ function loadNoteFromLocalStorage() {
 
 
 // Add note to trash array.
-function addNoteToTrashArray(i) {
-  idTrashes.push(currentList.notes[i].id);
-  titleTrashes.push(currentList.notes[i].title);
-  newNoteTrashes.push(currentList.notes[i].description);
-  
-  deleteNote(i);
-  saveTrashInLocalStorage();
+function addNoteToTrashArray(id) {
+  debugger
+  currentList.goToTrash(id)
+  render()
+  // saveTrashInLocalStorage();
 }
 
 // Save trash in local storage array.
@@ -159,7 +151,6 @@ document.querySelector(".button-save").addEventListener("click", () => {
   const title = document.getElementById("new-title");
   const description = document.getElementById("new-note");
   const idGenerator = new IdGenerator();
-
   if (title.value == "" || description.value == "") {
     alert("Please enter a title and a note.");
   } else {
@@ -170,5 +161,5 @@ document.querySelector(".button-save").addEventListener("click", () => {
   title.value = "";
   description.value = "";
   render();
-  saveNoteInLocalStorage();
+  // saveNoteInLocalStorage();
 });
