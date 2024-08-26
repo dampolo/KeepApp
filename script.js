@@ -2,10 +2,6 @@ const currentList = new Notebook();
 const trash = new Notebook();
 const archive = new Notebook();
 
-let titleTrashes = [];
-let newNoteTrashes = [];
-let idTrashes = [];
-
 // loadNoteFromLocalStorage();
 // loadTrashFromLocalStorage();
 
@@ -14,6 +10,11 @@ function toggleNewNoteInput() {
 }
 
 function render() {
+  document.getElementById("title").innerHTML = `MyKEEP`;
+  document.getElementById("my-keep").classList.add("box-shadow");
+  document.getElementById("new-input").classList.remove("d-none");
+  document.getElementById("trash-header").classList.remove("box-shadow");
+
   let content = document.getElementById("new-content");
   content.innerHTML = "";
 
@@ -34,14 +35,12 @@ function render() {
   });
 }
 
-function deleteTrashFromTrashCompletely(i) {
-  titleTrashes.splice(i, 1);
-  newNoteTrashes.splice(i, 1);
-  idTrashes.splice(i, 1);
-
+function deleteTrashFromTrashCompletely(id) {
+  trash.deleteTrashFromTrash(id)
   renderTrash();
   // saveTrashInLocalStorage();
 }
+
 
 // Save note in local storage.
 function saveNoteInLocalStorage() {
@@ -49,12 +48,14 @@ function saveNoteInLocalStorage() {
   localStorage.setItem("currentList", currentListAsText);
 }
 
-function addDeletedNoteToMyKeepArrayAgain(i) {
-  currentList.addNoteToArray(new Task(idTrashes[i], titleTrashes[i], newNoteTrashes[i]));
-  
-  deleteTrashFromTrashCompletely(i);
+
+function addDeletedNoteToMyKeepArrayAgain(id) {
+  currentList.restoreTrash(id)
+  trash.removeFromTrash(id)
+  renderTrash();
   // saveNoteInLocalStorage();
 }
+
 
 // Load note from local sorage.
 function loadNoteFromLocalStorage() {
@@ -74,8 +75,8 @@ function loadNoteFromLocalStorage() {
 
 // Add note to trash array.
 function addNoteToTrashArray(id) {
-  debugger
-  currentList.goToTrash(id)
+  trash.addNoteToTrash(id)
+  currentList.removeFormCurrentList(id)
   render()
   // saveTrashInLocalStorage();
 }
@@ -111,33 +112,33 @@ function renderTrash() {
   let content = document.getElementById("new-content");
   content.innerHTML = "";
 
-  for (let i = 0; i < titleTrashes.length; i++) {
-    const titleTrash = titleTrashes[i];
-    const newNoteTrash = newNoteTrashes[i];
+  trash.notes.forEach((trash) => {
 
     content.innerHTML += /*html*/ `
         <div class="new-input-container-saved">
             <div class="new-input-saved">
-                <div class="new-title-saved" type="text">${titleTrash}</div>
+                <div class="new-title-saved" type="text">${trash.title}</div>
             </div>
             <div class="card-write">    
-                <div class="new-note-saved">${newNoteTrash}</div>
+                <div class="new-note-saved">${trash.description}</div>
                 <div class="button-save-close">
-                <img class="img-header" src="img/arrow-back-up-double.svg" alt="arrow-back-up-double" onclick="addDeletedNoteToMyKeepArrayAgain(${i})">
-                <button class="button-delete" onclick="deleteTrashFromTrashCompletely(${i})">DELETE</button>
+                <img class="img-header" src="img/arrow-back-up-double.svg" alt="arrow-back-up-double" onclick="addDeletedNoteToMyKeepArrayAgain('${trash.id}')">
+                <button class="button-delete" onclick="deleteTrashFromTrashCompletely('${trash.id}')">DELETE</button>
                 </div>  
             </div>
         </div>
        `;
-  }
+});
 }
 
 function addClasses() {
   document.getElementById("title").innerHTML = `Trash`;
   document.getElementById("new-input").classList.add("d-none");
   document.getElementById("trash-header").classList.add("box-shadow");
+  document.getElementById("my-keep").classList.remove("box-shadow");
+  document.getElementById("my-keep").classList.remove("add-my-keep");
   document.getElementById("my-keep").classList.remove("my-keep");
-  document.getElementById("my-keep").classList.add("add-my-keep");
+
   document
     .getElementById("new-content-container-height")
     .classList.add("new-content-container-footer-trash");
